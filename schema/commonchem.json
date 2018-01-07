@@ -1,0 +1,51 @@
+{
+  "id": "http://commonchem.org/schema/commonchem",
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "title": "CommonChem",
+  "description": "JSON schema for CommonChem",
+  "type": "object",
+  "properties": {
+    "commonchem": {
+      "description": "The version of the CommonChem specification that this file adheres to",
+      "type": "string"
+    },
+    "molecules": {
+      "description": "Molecules in this CommonChem file",
+      "type": "array",
+      "items": {"$ref": "#molecule"}
+    }
+  },
+  "additionalProperties": false,
+  "required": ["commonchem"],
+  "definitions": {
+    "molecule": {
+      "$id": "#molecule",
+      "title": "Molecule",
+      "description": "JSON schema for CommonChem Molecule",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "A unique identifier for a molecule",
+          "type": "string"
+        },
+        "atoms": {
+          "description": "Atoms in this molecule",
+          "type": "array",
+          "items": {"$ref": "#atom"}
+        },
+        "bonds": {
+          "description": "Bonds in this molecule",
+          "type": "array",
+          "items": {"$ref": "#bond"}
+        }
+      },
+      "required": ["atoms"]
+    },
+    "atom": {
+      "$id": "#atom"
+    },
+    "bond": {
+      "$id": "#bond"
+    }
+  }
+}

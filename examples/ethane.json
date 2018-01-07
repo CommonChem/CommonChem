@@ -1,0 +1,15 @@
+{
+  "commonchem": {"version": "0.0.1"},
+  "molecules": [
+    {
+      "name": "ethane",
+      "atoms": [
+        {"element": 6, "hcount": 3},
+        {"element": 6, "hcount": 3}
+      ],
+      "bonds": [
+        {"order": 1, "start": 0, "end": 1}
+      ]
+    }
+  ]
+}
