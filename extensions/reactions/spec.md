@@ -41,7 +41,7 @@ This extension adds the following fields to the [Atom object](../../spec.md#atom
   "commonchem": {
     "version": "0.0.1",
     "extensions": [{"id": "reactions", "version": "0.0.1"}]
-  }
+  },
   "x-reactions": [
     {
       "reactants": [],

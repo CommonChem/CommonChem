@@ -306,10 +306,10 @@ Example of a CommonChem file containing conformer coordinates:
   "molecules": [
     {
       "atoms": [{"element": 6}, {"element": 6}, {"element": 8}, {"element": 8}],
-      "bonds": [{"start": 0, "end": 1}, {"start": 1, "end": 2}, {"start": 1, "end": 3, "order": 2}]
+      "bonds": [{"start": 0, "end": 1}, {"start": 1, "end": 2}, {"start": 1, "end": 3, "order": 2}],
       "conformers": [
         {
-          "id": "conf1"
+          "id": "conf1",
           "coordinates": [
             {"x": 1.7321, "y": 0.0000}, 
             {"x": 0.8660, "y": 0.5000}, 
@@ -360,14 +360,14 @@ Each field consists of the prefix `x-`, followed by the extension `id`, followed
 ```json
 {
   "commonchem": {
-    "version": "0.0.1"
+    "version": "0.0.1",
     "extensions": [{"id": "rdkit", "version": "0.0.1"}, {"id": "myextension", "version": "0.0.1"}]
   },
   "molecules": [
     {
       "atoms": [{"element": 6, "hcount": 4, "x-rdkit-aromatic": false}],
       "x-myextension-molmeta": {
-        "flavor": 2
+        "flavor": 2,
         "comment": "test"
       }
     }

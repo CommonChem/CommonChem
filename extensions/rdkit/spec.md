@@ -46,7 +46,7 @@ The RDKit aromaticity model is defined as follows: `TODO`
   "commonchem": {
     "version": "0.0.1",
     "extensions": [{"id": "rdkit", "version": "0.0.1"}]
-  }
+  },
   "molecules": [
     
   ]
