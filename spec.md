@@ -198,7 +198,7 @@ The following fields are available:
 | chg         | `integer` | Formal charge. **Default**: 0.                                                            |
 | impHs      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
 | isotope     | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
-| nrad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
+| nRad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
 | stereo      | `string`  | Allowed values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                     |
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
@@ -221,7 +221,7 @@ The following fields are available:
 |-------------|-------------|--------------------------------------------------------------------------|
 | type        | `integer`   | Bond order. **Required**.                                                |
 | atoms       | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required**  |
-| stereoatoms | [`integer`] | Indices of the atoms determining the stereochemistry. **Default**: `[]`. |
+| stereoAtoms | [`integer`] | Indices of the atoms determining the stereochemistry. **Default**: `[]`. |
 | stereo      | `string`    | Allowed values are `unspecified`, `cis`, `trans`, `other`.               |
 
 Allowed bond orders are 0, 1, 2, 3. Zero-order bonds do not have any valence contribution, and should be used for things like coordination bonds and hydrogen bonds. Bond orders 1, 2, and 3 correspond to single, double, and triple bonds respectively.

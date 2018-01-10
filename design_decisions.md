@@ -36,9 +36,9 @@ Another possibility would be to use a single file extension (`.cchem`?) for all 
 
 ## Field Names Style Guide
 
-There is no strictly enforced style for field names. Fields in the core CommonChem specification should be lowercase with words separated by underscores as necessary to improve readability. This matches the [PEP8 style guide for Python](https://www.python.org/dev/peps/pep-0008/). CamelCase is discouraged, but may be used in toolkit-specific extensions to match the convention used by the toolkit.
+There is no strictly enforced style for field names. Fields in the core CommonChem specification should be lowercase or camelCase (with an initial lower case letter) where necessary to improve readability.
 
-Legibility is prioritized over brevity. CommonChem isn't trying to be the most concise possible representation (there are much better formats for that) so why sacrifice human-readability? For example, we use field names like `bonds` instead of `b`, and `type` instead of `t`, etc. Widely understood abbreviations such as `chg`, `coords`, and `hcount` are still used.
+Legibility must be balanced with brevity. CommonChem isn't trying to be the most concise possible representation (there are much better formats for that) so why sacrifice human-readability? Widely understood abbreviations such as `chg`, `coords`, and `impHs` are acceptable but more cryptic fields like single letters are discouraged.
 
 ## Versions
 
@@ -47,44 +47,6 @@ Semantic versioning allows future versions of the CommonChem specification to in
 ## Multiple Molecules
 
 CommonChem has a top level `molecules` array field to allow multiple molecules to be included in a single file. The most popular chemical file format, MOl/SDF, allows for multiple molecules, therefore CommonChem should also support this. This also allows for greater extensibility than a file with the contents of a single molecules at the root level. In future, new top level fields for other object types such as `reactions` could be added.
-
-## Objects vs. Arrays
-
-There are two potential ways for specifying data that relates to all the atoms in a molecule. One way is to use a separate array for each property, such that the properties for a given atom can be obtained by looking at the same index in each array:
-
-```json
-{
-  "name": "Acetate",
-  "atoms": {
-    "elements": [6, 6, 8, 8],
-    "hcounts": [3, 0, 0, 0],
-    "charges": [0, 0, 0, -1]
-  }
-}
-```
-
-Alternatively, a single array of atom objects that have property fields for each atom:
-
-```json
-{
-  "name": "Acetate",
-  "atoms": [
-    {"z": 6, "hcount": 3},
-    {"z": 6},
-    {"z": 8},
-    {"z": 8, "charge": -1},
-  ]
-}
-```
-
-We chose the latter method for a number of reasons:
-
-- It matches better with many applications internal data structures.
-- It doesn't require lots `0` or `null` values when many atoms have the default value.
-- It allows for sub-object querying in object-oriented databases.
-- It doesn't preclude the use of arrays for some properties
-
-On the whole, objects with field names that explicitly define the meaning of values are preferred over arrays of values. For example, coordinates are specified using `x`, `y`, and `z` fields, rather that just an array of three values.
 
 ## IDs vs. Indices
 
@@ -125,7 +87,7 @@ It is important that CommonChem is able to support biological macromolecules, so
 
 ## Stereochemistry
 
-The most basic tetrahedral stereochemistry indicator would be a `parity` field on atom objects. A clockwise/anti-clockwise value combined with the order of atoms in the molecule's `atoms` array would be enough to give the stereochemistry configuration. However, there's a lot of implicit information when doing it this way. What if there is a `hcount` implicit hydrogen on the stereocenter? What if a lone pair is involved?
+The most basic tetrahedral stereochemistry indicator would be a `parity` field on atom objects. A clockwise/anti-clockwise value combined with the order of atoms in the molecule's `atoms` array would be enough to give the stereochemistry configuration. However, there's a lot of implicit information when doing it this way. What if there is a `impHs` implicit hydrogen on the stereocenter? What if a lone pair is involved?
 
 This also doesn't help much with more exotic stereochemistry configurations.
 
