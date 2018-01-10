@@ -6,7 +6,7 @@ Here is a simple example:
 
 ```json
 {
-  "commonchem": {"version": "0.0.1"},
+  "commonchem": {"version": 1000},
   "molecules": [
     {
       "name": "ethane",
