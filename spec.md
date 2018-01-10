@@ -225,7 +225,6 @@ The following fields are available:
 
 | Name        | Type                                    | Description                                           |
 |-------------|-----------------------------------------|-------------------------------------------------------|
-| id          | `string`                                | Must be unique within this array of Molecule objects. |
 | name        | `string`                                | A name for this Molecule.                             |
 | atoms       | [[Atom Object](#atom-object)]           | An array of Atom objects.                             |
 | bonds       | [[Bond Object](#bond-object)]           | An array of Bond objects.                             |
@@ -240,7 +239,6 @@ The following fields are available:
 
 | Name        | Type      | Description                                                                               |
 |-------------|-----------|-------------------------------------------------------------------------------------------|
-| id          | `string`  | Must be unique within this array of Atom objects.                                         |
 | element     | `integer` | Atomic number. **Required**.                                                              |
 | charge      | `number`  | Formal charge. **Default**: 0.                                                            |
 | hcount      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
@@ -267,7 +265,6 @@ The following fields are available:
 
 | Name  | Type        | Description                                                             |
 |-------|-------------|-------------------------------------------------------------------------|
-| id    | `string`    | Must be unique within this array of Bond objects.                       |
 | order | `integer`   | Bond order. **Required**.                                               |
 | atoms | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required** |
 | style | `string`    | Bond style specifier. `dashed`, `wavy`, `dotted`, `arrow`.              |
