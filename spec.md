@@ -63,7 +63,7 @@ JSON example:
   "commonchem": {"version": 1000},
   "molecules": [{
     "name": "ethane",
-    "atoms": [{"z": 6, "hcount": 3}, {"z": 6, "hcount": 3}],
+    "atoms": [{"z": 6, "impHs": 3}, {"z": 6, "impHs": 3}],
     "bonds": [{"type": 1, "atoms": [0, 1]}]
   }]
 }
@@ -82,13 +82,12 @@ molecules:
   - name: ethane
     atoms:
       - z: 6
-        hcount: 3
+        impHs: 3
       - z: 6
-        hcount: 3
+        impHs: 3
     bonds:
       - type: 1
-        start: 0
-        end: 1
+        atoms: [0, 1]
 ```
 
 #### MessagePack
@@ -131,7 +130,7 @@ Example of a Container object:
 ```json
 {
    "commonchem": {"version": 1000},
-   "molecules": [{"atoms": [{"z": 6, "hcount": 4}]}]
+   "molecules": [{"atoms": [{"z": 6, "impHs": 4}]}]
 }
 ```
 
@@ -170,8 +169,8 @@ Example of a Molecule object:
     "id": "CID6324",
     "name": "ethane",
     "atoms": [
-      {"z": 6, "hcount": 3},
-      {"z": 6, "hcount": 3}
+      {"z": 6, "impHs": 3},
+      {"z": 6, "impHs": 3}
     ],
     "bonds": [
       {"type": 1, "atoms": [0, 1]}
@@ -197,20 +196,20 @@ The following fields are available:
 |-------------|-----------|-------------------------------------------------------------------------------------------|
 | z           | `integer` | Atomic number. **Required**.                                                              |
 | chg         | `integer` | Formal charge. **Default**: 0.                                                            |
-| hcount      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
+| impHs      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
 | isotope     | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
 | nrad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
 | stereo      | `string`  | Allowed values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                     |
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
 
-Hydrogens may be represented as actual atom objects in the molecular graph as an alternative to the `hcount` field. This is necessary if:
+Hydrogens may be represented as actual atom objects in the molecular graph as an alternative to the `impHs` field. This is necessary if:
 
 - Coordinates are provided for the hydrogen (typically in 3-D)
 - The hydrogen has a charge or isotope number
 - The hydrogen does not have exactly one bond to a non-hydrogen atom
 
-Tetrahedral stereochemistry is specified using the `stereo` field. The order of the bonded atom neighbors is given by their relative order in the molecule's `atoms` array. If the atom has a non-zero `hcount` the hydrogen is considered to be the first atom neighbor in the order. Looking towards the chiral center from the first atom neighbor, the remaining neighbors occur in a clockwise (`cw`) or counter-clockwise (`ccw`) direction.
+Tetrahedral stereochemistry is specified using the `stereo` field. The order of the bonded atom neighbors is given by their relative order in the molecule's `atoms` array. If the atom has a non-zero `impHs` the hydrogen is considered to be the first atom neighbor in the order. Looking towards the chiral center from the first atom neighbor, the remaining neighbors occur in a clockwise (`cw`) or counter-clockwise (`ccw`) direction.
 
 Atom coordinates are specified using the [`conformers`](#Conformer) molecule field.
 
@@ -252,7 +251,7 @@ Example of a CommonChem file containing conformer coordinates:
       "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
       "bonds": [{"atoms": [0, 1], "type": 1}, {"atoms": [1, 2], "type": 1}, {"atoms": [1, 3], "type": 2}],
       "conformers": [
-        {"dim": 2, "coords": [[1.7321,0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
+        {"dim": 2, "coords": [[1.7321, 0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
       ]
     }
   ]

@@ -1,14 +1,14 @@
 {
-  "commonchem": {"version": "0.0.1"},
+  "commonchem": {"version": 1000},
   "molecules": [
     {
       "name": "ethane",
       "atoms": [
-        {"element": 6, "hcount": 3},
-        {"element": 6, "hcount": 3}
+        {"z": 6, "impHs": 3},
+        {"z": 6, "impHs": 3}
       ],
       "bonds": [
-        {"order": 1, "start": 0, "end": 1}
+        {"order": 1, "atoms": [0, 1]}
       ]
     }
   ]
