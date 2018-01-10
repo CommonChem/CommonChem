@@ -60,7 +60,7 @@ JSON example:
 
 ```json
 {
-  "commonchem": {"version": 1000},
+  "commonchem": 1000,
   "molecules": [{
     "name": "ethane",
     "atoms": [{"z": 6, "impHs": 3}, {"z": 6, "impHs": 3}],
@@ -76,8 +76,7 @@ JSON example:
 YAML example:
 
 ```yaml
-commonchem:
-  version: 1000
+commonchem: 1000
 molecules:
   - name: ethane
     atoms:
@@ -129,7 +128,7 @@ Example of a Container object:
 
 ```json
 {
-   "commonchem": {"version": 1000},
+   "commonchem": 1000,
    "molecules": [{"atoms": [{"z": 6, "impHs": 4}]}]
 }
 ```
@@ -138,27 +137,11 @@ It can have the following fields:
 
 | Name       | Type                                  | Description                                                    |
 |------------|---------------------------------------|----------------------------------------------------------------|
-| commonchem | [Metadata Object](#metadata-object)   | Indicates that the file conforms to a specific version of the CommonChem specification and provides other metadata about the file.  **Required**. |
+| commonchem | `integer`                             | Indicates that the file conforms to a specific version of the CommonChem specification. **Required**. |
 | defaults   | [Defaults Object](#defaults-object)   | Defines the default values for missing fields.                 |
 | molecules  | [[Molecule Object](#molecule-object)] | Array of Molecule objects, each of which describes a chemical structure. |
 
 It is recommended that the `commonchem` field is the first field in the file, but this is solely to help with human-readability.
-
-### Metadata Object
-
-Every CommonChem file must have a single Metadata object as the value for the `commonchem` field in the top level Container.
-
-Example of a Metadata object:
-
-```json
-{"version": 1000}
-```
-
-
-| Name       | Type                                    | Description                                                  |
-|------------|-----------------------------------------|--------------------------------------------------------------|
-| version    | `integer`                               | The version of this specification that the file conforms to. **Required**. |
-
 
 ### Defaults Object
 
@@ -268,7 +251,7 @@ Example of a CommonChem file containing conformer coordinates:
 
 ```json
 {
-  "commonchem": {"version": 1000},
+  "commonchem": 1000,
   "molecules": [
     {
       "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
@@ -354,7 +337,7 @@ One of the goals of the CommonChem project is for as many applications as possib
 
 ```json
 {
-  "commonchem": {"version": 1000},
+  "commonchem": 1000,
   "defaults": {
     "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "Z": 6, "impHs": 0, "isotope": 0},
     "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
