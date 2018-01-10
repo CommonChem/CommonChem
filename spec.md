@@ -163,7 +163,7 @@ Example of a Metadata object:
 
 | Name       | Type                                    | Description                                                  |
 |------------|-----------------------------------------|--------------------------------------------------------------|
-| version    | `string`                                | The version of this specification that the file conforms to. **Required**. |
+| version    | `integer`                               | The version of this specification that the file conforms to. **Required**. |
 | extensions | [[Extension Object](#extension-object)] | Array of CommonChem extensions used in this file.            |
 
 Each [Extension Object](#extension-object) in the `extensions` field must have a unique `id`. A file cannot conform to multiple versions of the same extension.
@@ -243,16 +243,11 @@ The following fields are available:
 | id          | `string`  | Must be unique within this array of Atom objects.                                         |
 | element     | `integer` | Atomic number. **Required**.                                                              |
 | charge      | `number`  | Formal charge. **Default**: 0.                                                            |
-| x           | `number`  | x coordinate.                                                                             |
-| y           | `number`  | y coordinate.                                                                             |
-| z           | `number`  | z coordinate.                                                                             |
 | hcount      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
 | isotope     | `integer` | Atomic mass number. **Default**: Natural abundance mixture.                               |
 | radical     | `integer` | Number of unpaired electrons. **Default**: 0.                                             |
 | lonepairs   | `integer` | Number of lone pairs. **Default**: 0.                                                     |
 | parity      | `integer` | `1` for clockwise or `-1` for anticlockwise.                                              |
-
-Atom coordinates are optional. If present, coordinates should be 2-D or 3-D. That is, either `x` and `y` should be present or `x`, `y`, and `z` should be present. All atoms in a molecule should have the same coordinate dimensionality.
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
 
@@ -264,7 +259,7 @@ Hydrogens may be represented as actual atom objects in the molecular graph as an
 
 Tetrahedral stereochemistry is specified using the `parity` field. The order of the bonded atom neighbors is given by their relative order in the molecule's `atoms` array. If the atom has a non-zero `hcount` the hydrogen is considered to be the first atom neighbor in the order. Looking towards the chiral center from the first atom neighbor, the remaining neighbors occur in a clockwise (`parity` of `1`) or anti-clockwise (`parity` of `-1`) direction.
 
-It is possible to specify multiple coordinate sets for a molecule using the [conformers](#Conformer) field. If conformers exist for a molecule, a set of coordinates may still also be specified on each Atom object. This coordinate set simply becomes the first conformer.
+Atom coordinates are specified using the [`conformers`](#Conformer) molecule field.
 
 ### Bond Object
 
