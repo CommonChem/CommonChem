@@ -284,12 +284,12 @@ Multiple different molecular conformations may be specified for a single molecul
 
 The following fields are available:
 
-| Name        | Type                            | Description                                             |
-|-------------|---------------------------------|---------------------------------------------------------|
-| id          | `string`                        | Must be unique within this array of Conformer objects.  |
-| coordinates | [[Point Object](#point-object)] | Array of coordinates in 2-D or 3-D space. **Required**. |
+| Name   | Type         | Description                                    |
+|--------|--------------|------------------------------------------------|
+| dim    | `integer`    | Dimensionality. **Required**.                  |
+| coords | [[`number`]] | Array of 2-D or 3-D coordinates. **Required**. |
 
-All coordinate points in a conformer should have the same dimensionality.
+The `coords` field is an array of arrays, where each of the inner arrays contains either two or three `number` values. All coordinates in a conformer should have the same dimensionality.
 
 Example of a CommonChem file containing conformer coordinates:
 
@@ -301,37 +301,11 @@ Example of a CommonChem file containing conformer coordinates:
       "atoms": [{"element": 6}, {"element": 6}, {"element": 8}, {"element": 8}],
       "bonds": [{"start": 0, "end": 1}, {"start": 1, "end": 2}, {"start": 1, "end": 3, "order": 2}],
       "conformers": [
-        {
-          "id": "conf1",
-          "coordinates": [
-            {"x": 1.7321, "y": 0.0000}, 
-            {"x": 0.8660, "y": 0.5000}, 
-            {"x": 0.8660, "y": 1.5000}, 
-            {"x": 0.0000, "y": 0.0000}
-          ]
-        }
+        {"dim": 2, "coords": [[1.7321,0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
       ]
     }
   ]
 }
-```
-
-### Point Object
-
-The following fields are available:
-
-| Name | Type        | Description                 |
-|------|-------------|-----------------------------|
-| x    | number      | x coordinate. **Required**. |
-| y    | number      | y coordinate. **Required**. |
-| z    | number      | z coordinate.               |
-
-Points should be 2-D or 3-D (i.e. the `z` coordinate is optional). 
-
-Example of a Point object:
-
-```json
-{"x": 0.8660, "y": 1.5000, "z": 0.0000}
 ```
 
 ## Extensions
