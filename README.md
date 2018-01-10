@@ -11,8 +11,8 @@ Here is a simple example:
     {
       "name": "ethane",
       "atoms": [
-        {"element": 6, "hcount": 3},
-        {"element": 6, "hcount": 3}
+        {"z": 6, "hcount": 3},
+        {"z": 6, "hcount": 3}
       ],
       "bonds": [
         {"order": 1, "start": 0, "end": 1}

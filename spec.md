@@ -64,7 +64,7 @@ JSON example:
   "commonchem": {"version": 1000},
   "molecules": [{
     "name": "ethane",
-    "atoms": [{"element": 6, "hcount": 3}, {"element": 6, "hcount": 3}],
+    "atoms": [{"z": 6, "hcount": 3}, {"z": 6, "hcount": 3}],
     "bonds": [{"order": 1, "atoms": [0, 1]}]
   }]
 }
@@ -82,9 +82,9 @@ commonchem:
 molecules:
   - name: ethane
     atoms:
-      - element: 6
+      - z: 6
         hcount: 3
-      - element: 6
+      - z: 6
         hcount: 3
     bonds:
       - order: 1
@@ -103,7 +103,7 @@ The data types used by CommonChem match those supported by JSON.
 | Type      | Description                                |
 |-----------|--------------------------------------------|
 | `object`  | Container with fields and values           |
-| `array`   | Ordered list of elements                   |
+| `array`   | Ordered list of values                     |
 | `string`  | UTF-8 encoded unicode string               |
 | `number`  | Numeric type                               |
 | `boolean` | `true` or `false`                          |
@@ -132,7 +132,7 @@ Example of a Container object:
 ```json
 {
    "commonchem": {"version": 1000},
-   "molecules": [{"atoms": [{"element": 6, "hcount": 4}]}]
+   "molecules": [{"atoms": [{"z": 6, "hcount": 4}]}]
 }
 ```
 
@@ -212,8 +212,8 @@ Example of a Molecule object:
     "id": "CID6324",
     "name": "ethane",
     "atoms": [
-      {"element": 6, "hcount": 3},
-      {"element": 6, "hcount": 3}
+      {"z": 6, "hcount": 3},
+      {"z": 6, "hcount": 3}
     ],
     "bonds": [
       {"order": 1, "atoms": [0, 1]}
@@ -239,13 +239,12 @@ The following fields are available:
 
 | Name        | Type      | Description                                                                               |
 |-------------|-----------|-------------------------------------------------------------------------------------------|
-| element     | `integer` | Atomic number. **Required**.                                                              |
-| charge      | `number`  | Formal charge. **Default**: 0.                                                            |
+| z           | `integer` | Atomic number. **Required**.                                                              |
+| chg         | `integer` | Formal charge. **Default**: 0.                                                            |
 | hcount      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
-| isotope     | `integer` | Atomic mass number. **Default**: Natural abundance mixture.                               |
-| radical     | `integer` | Number of unpaired electrons. **Default**: 0.                                             |
-| lonepairs   | `integer` | Number of lone pairs. **Default**: 0.                                                     |
-| parity      | `integer` | `1` for clockwise or `-1` for anticlockwise.                                              |
+| isotope     | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
+| nrad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
+| stereo      | `string`  | Possible values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                    |
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
 
@@ -270,7 +269,7 @@ The following fields are available:
 
 Allowed bond orders are 0, 1, 2, 3. Zero-order bonds do not have any valence contribution, and should be used for things like coordination bonds and hydrogen bonds. Bond orders 1, 2, and 3 correspond to single, double, and triple bonds respectively.
 
-The bond `atoms` array uses the zero-based index of atoms in the molecule's `atoms` array. It must contain exactly two elements.
+The bond `atoms` array uses the zero-based index of atoms in the molecule's `atoms` array. It must contain exactly two integers.
 
 ### Conformer Object
 
@@ -292,7 +291,7 @@ Example of a CommonChem file containing conformer coordinates:
   "commonchem": {"version": 1000},
   "molecules": [
     {
-      "atoms": [{"element": 6}, {"element": 6}, {"element": 8}, {"element": 8}],
+      "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
       "bonds": [{"atoms": [0, 1]}, {"atoms": [1, 2]}, {"atoms": [1, 3], "order": 2}],
       "conformers": [
         {"dim": 2, "coords": [[1.7321,0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
@@ -326,7 +325,7 @@ Each field consists of the prefix `x-`, followed by the extension `id`, followed
   },
   "molecules": [
     {
-      "atoms": [{"element": 6, "hcount": 4, "x-rdkit-aromatic": false}],
+      "atoms": [{"z": 6, "hcount": 4, "x-rdkit-aromatic": false}],
       "x-myextension-molmeta": {
         "flavor": 2,
         "comment": "test"

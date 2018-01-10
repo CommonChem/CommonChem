@@ -69,10 +69,10 @@ Alternatively, a single array of atom objects that have property fields for each
 {
   "name": "Acetate",
   "atoms": [
-    {"element": 6, "hcount": 3},
-    {"element": 6},
-    {"element": 8},
-    {"element": 8, "charge": -1},
+    {"z": 6, "hcount": 3},
+    {"z": 6},
+    {"z": 8},
+    {"z": 8, "charge": -1},
   ]
 }
 ```
