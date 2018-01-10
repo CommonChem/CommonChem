@@ -1,6 +1,6 @@
 ---
 title: Depiction CommonChem Extension
-version: 0.0.1
+version: 1.0
 author:
     - name: Matthew Swain
     - email: m.swain@me.com
@@ -43,7 +43,7 @@ This extension adds the following fields to the [Container object](../../spec.md
 {
   "commonchem": {
     "version": "0.0.1",
-    "extensions": [{"id": "depiction", "version": "0.0.1"}]
+    "extensions": [{"id": "depiction", "version": 1000}]
   },
   "x-depiction": {
 

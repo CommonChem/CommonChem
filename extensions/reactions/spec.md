@@ -1,6 +1,6 @@
 ---
 title: Reactions CommonChem Extension
-version: 0.0.1
+version: 1.0
 author:
     - name: Matthew Swain
     - email: m.swain@me.com
@@ -39,8 +39,8 @@ This extension adds the following fields to the [Atom object](../../spec.md#atom
 ```json
 {
   "commonchem": {
-    "version": "0.0.1",
-    "extensions": [{"id": "reactions", "version": "0.0.1"}]
+    "version": 1000,
+    "extensions": [{"id": "reactions", "version": 1000}]
   },
   "x-reactions": [
     {

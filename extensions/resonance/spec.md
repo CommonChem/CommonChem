@@ -1,6 +1,6 @@
 ---
 title: Resonance CommonChem Extension
-version: 0.0.1
+version: 1.0
 author:
     - name: Matthew Swain
     - email: m.swain@me.com

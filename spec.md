@@ -1,6 +1,6 @@
 ---
 title: CommonChem Specification
-version: 0.0.1
+version: 1.0
 author:
     - name: Matthew Swain
     - email: m.swain@me.com
@@ -10,11 +10,11 @@ author:
 
 ## Introduction
 
-This is a draft specification for CommonChem, a data format for representing chemical information. The format is designed to be easy for both humans and computers to understand.
+This is the specification for CommonChem, a data format for representing chemical information. The format is designed to be easy for both humans and computers to understand.
 
 One of the main features of CommonChem is its extensibility. This means it can accommodate kinds of data that are not explicitly described in this core specification, thus allowing for improved parsing performance because applications can store derived data in the file instead of having to regenerate it.
 
-The purpose of this open, versioned specification is to facilitate interoperability and to make it as easy as possible for software developers to support CommonChem files in their applications. This specification is sometimes referred to as the "Core CommonChem Specification" to distinguish it from other CommonChem Extension specifications.
+The purpose of this open, versioned specification is to facilitate interoperability and to make it as easy as possible for software developers to support CommonChem files in their applications. This specification is sometimes referred to as the "Core CommonChem Specification" to distinguish it from extension specifications.
 
 ## Table of Contents
 
@@ -26,17 +26,15 @@ The purpose of this open, versioned specification is to facilitate interoperabil
 
 ## Versions
 
-This specification is versioned using [Semantic Versioning](https://semver.org).
+This specification is versioned with a number that consists of two components: `major.minor` (for example 1.2). The major version is incremented when a backwards-incompatible change is made, and the minor version is incremented when a backwards-compatible change is made. Applications that are designed for a specific version should continue to work with subsequent minor releases, although they will not necessarily fully support any newly added features. Applications should not attempt to read or write a CommonChem file with a major version that they do not support.
 
-The version number consists of three components: major.minor.patch (for example 1.1.5). The major version is incremented when a backwards-incompatible change is made, and the minor version is incremented when a backwards-compatible change is made. The patch version is incremented for changes that fix errors or make improvements related to the specification document itself, but don't affect the described features.
-
-Applications should not need to take into account the patch version. For example, implementations that are compatible with CommonChem 1.1.0 should be fully compatible with all 1.1.* versions. Implementations designed for a specific version should continue to work with subsequent minor releases, although they will not necessarily fully support any newly added features.
+Within a CommonChem file, versions are stored using a single integer where 1000 values are allocated for potential minor versions in each major version. For example, `1000` corresponds to version `1.0`, and `2010` would correspond to version `2.10`.
 
 ### Version History
 
-| Version | Date       | Notes                                        |
-|---------|------------|----------------------------------------------|
-| 0.0.1   | 2018-01-07 | First draft of the CommonChem Specification. |
+| Version | Integer Version | Date       | Notes                                          |
+|---------|-----------------|------------|------------------------------------------------|
+| 1.0     | 1000            | 2018-??-?? | First version of the CommonChem Specification. |
 
 ## Format
 
@@ -63,7 +61,7 @@ JSON example:
 
 ```json
 {
-  "commonchem": {"version": "0.0.1"},
+  "commonchem": {"version": 1000},
   "molecules": [{
     "name": "ethane",
     "atoms": [{"element": 6, "hcount": 3}, {"element": 6, "hcount": 3}],
@@ -80,7 +78,7 @@ YAML example:
 
 ```yaml
 commonchem:
-  version: 0.0.1
+  version: 1000
 molecules:
   - name: ethane
     atoms:
@@ -133,7 +131,7 @@ Example of a Container object:
 
 ```json
 {
-   "commonchem": {"version": "0.0.1"},
+   "commonchem": {"version": 1000},
    "molecules": [{"atoms": [{"element": 6, "hcount": 4}]}]
 }
 ```
@@ -157,7 +155,7 @@ Example of a Metadata object:
 
 ```json
 {
-  "version": "0.0.1",
+  "version": 1000,
   "extensions": [{"id": "rdkit", "version": "0.0.1"}]
 }
 ```
@@ -302,7 +300,7 @@ Example of a CommonChem file containing conformer coordinates:
 
 ```json
 {
-  "commonchem": {"version": "0.0.1"},
+  "commonchem": {"version": 1000},
   "molecules": [
     {
       "atoms": [{"element": 6}, {"element": 6}, {"element": 8}, {"element": 8}],
@@ -360,7 +358,7 @@ Each field consists of the prefix `x-`, followed by the extension `id`, followed
 ```json
 {
   "commonchem": {
-    "version": "0.0.1",
+    "version": 1000,
     "extensions": [{"id": "rdkit", "version": "0.0.1"}, {"id": "myextension", "version": "0.0.1"}]
   },
   "molecules": [

@@ -1,6 +1,6 @@
 ---
 title: RDKit CommonChem Extension
-version: 0.0.1
+version: 1.0
 author:
     - name: Matthew Swain
     - email: m.swain@me.com
@@ -44,8 +44,8 @@ The RDKit aromaticity model is defined as follows: `TODO`
 ```json
 {
   "commonchem": {
-    "version": "0.0.1",
-    "extensions": [{"id": "rdkit", "version": "0.0.1"}]
+    "version": 1000,
+    "extensions": [{"id": "rdkit", "version": 1000}]
   },
   "molecules": [
     
