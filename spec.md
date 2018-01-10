@@ -265,10 +265,8 @@ The following fields are available:
 
 | Name  | Type        | Description                                                             |
 |-------|-------------|-------------------------------------------------------------------------|
-| order | `integer`   | Bond order. **Required**.                                               |
+| type  | `integer`   | Bond order. **Required**.                                               |
 | atoms | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required** |
-| style | `string`    | Bond style specifier. `dashed`, `wavy`, `dotted`, `arrow`.              |
-| type  | `string`    | Bond type specifier. `dative`, `complex`, `hydrogen`, `ionic`.          |
 
 Allowed bond orders are 0, 1, 2, 3. Zero-order bonds do not have any valence contribution, and should be used for things like coordination bonds and hydrogen bonds. Bond orders 1, 2, and 3 correspond to single, double, and triple bonds respectively.
 
