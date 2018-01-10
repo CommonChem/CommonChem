@@ -380,7 +380,4 @@ Anyone may create an extension specification. Submission for review through the 
 
 `TODO`
 
-## Appendix A: Definitions?
-
-## Appendix B: Periodic Table Data?
 
