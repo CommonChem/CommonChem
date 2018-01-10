@@ -38,7 +38,7 @@ Another possibility would be to use a single file extension (`.cchem`?) for all 
 
 There is no strictly enforced style for field names. Fields in the core CommonChem specification should be lowercase with words separated by underscores as necessary to improve readability. This matches the [PEP8 style guide for Python](https://www.python.org/dev/peps/pep-0008/). CamelCase is discouraged, but may be used in toolkit-specific extensions to match the convention used by the toolkit.
 
-Legibility is prioritized over brevity. CommonChem isn't trying to be the most concise possible representation (there are much better formats for that) so why sacrifice human-readability? For example, we use field names like `bonds` instead of `b`, and `order` instead of `o`, etc.
+Legibility is prioritized over brevity. CommonChem isn't trying to be the most concise possible representation (there are much better formats for that) so why sacrifice human-readability? For example, we use field names like `bonds` instead of `b`, and `type` instead of `t`, etc. Widely understood abbreviations such as `chg`, `coords`, and `hcount` are still used.
 
 ## Versions
 

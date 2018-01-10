@@ -65,7 +65,7 @@ JSON example:
   "molecules": [{
     "name": "ethane",
     "atoms": [{"z": 6, "hcount": 3}, {"z": 6, "hcount": 3}],
-    "bonds": [{"order": 1, "atoms": [0, 1]}]
+    "bonds": [{"type": 1, "atoms": [0, 1]}]
   }]
 }
 ```
@@ -87,7 +87,7 @@ molecules:
       - z: 6
         hcount: 3
     bonds:
-      - order: 1
+      - type: 1
         start: 0
         end: 1
 ```
@@ -216,7 +216,7 @@ Example of a Molecule object:
       {"z": 6, "hcount": 3}
     ],
     "bonds": [
-      {"order": 1, "atoms": [0, 1]}
+      {"type": 1, "atoms": [0, 1]}
     ]
 }
 ```
@@ -293,7 +293,7 @@ Example of a CommonChem file containing conformer coordinates:
   "molecules": [
     {
       "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
-      "bonds": [{"atoms": [0, 1]}, {"atoms": [1, 2]}, {"atoms": [1, 3], "order": 2}],
+      "bonds": [{"atoms": [0, 1], "type": 1}, {"atoms": [1, 2], "type": 1}, {"atoms": [1, 3], "type": 2}],
       "conformers": [
         {"dim": 2, "coords": [[1.7321,0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
       ]
