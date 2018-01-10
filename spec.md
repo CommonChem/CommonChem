@@ -229,7 +229,6 @@ The following fields are available:
 | atoms       | [[Atom Object](#atom-object)]           | An array of Atom objects.                             |
 | bonds       | [[Bond Object](#bond-object)]           | An array of Bond objects.                             |
 | conformers  | [[Conformer Object](#conformer-object)] | An array of Conformer objects.                        |
-| absolute    | `boolean`                               | Absolute stereochemistry flag.                        |
 
 [Extension fields](#extension-fields) may be added to this object.
 
