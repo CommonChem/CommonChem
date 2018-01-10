@@ -173,6 +173,8 @@ Example of a Defaults object:
 }
 ```
 
+The following fields are available:
+
 | Name  | Type                        | Description                            |
 |-------|-----------------------------|----------------------------------------|
 | atom  | [Atom Object](#atom-object) | Atom object with default field values. |
@@ -200,26 +202,27 @@ Example of a Molecule object:
 
 The following fields are available:
 
-| Name        | Type                                    | Description                    |
-|-------------|-----------------------------------------|--------------------------------|
-| name        | `string`                                | Name for this Molecule.        |
-| atoms       | [[Atom Object](#atom-object)]           | Array of Atom objects.         |
-| bonds       | [[Bond Object](#bond-object)]           | Array of Bond objects.         |
-| conformers  | [[Conformer Object](#conformer-object)] | Array of Conformer objects.    |
-| extensions  | [[Extension Object](#extension-object)] | An array of Extension objects. |
+| Name        | Type                                    | Description                 |
+|-------------|-----------------------------------------|-----------------------------|
+| name        | `string`                                | Name for this Molecule.     |
+| atoms       | [[Atom Object](#atom-object)]           | Array of Atom objects.      |
+| bonds       | [[Bond Object](#bond-object)]           | Array of Bond objects.      |
+| conformers  | [[Conformer Object](#conformer-object)] | Array of Conformer objects. |
+| properties  | [[Property Object](#property-object)]   | Array of Property objects.  |
+| extensions  | [[Extension Object](#extension-object)] | Array of Extension objects. |
 
 ### Atom Object
 
 The following fields are available:
 
-| Name        | Type      | Description                                                                               |
-|-------------|-----------|-------------------------------------------------------------------------------------------|
-| z           | `integer` | Atomic number. **Required**.                                                              |
-| chg         | `integer` | Formal charge. **Default**: 0.                                                            |
-| impHs      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
-| isotope     | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
-| nRad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
-| stereo      | `string`  | Allowed values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                     |
+| Name    | Type      | Description                                                                               |
+|---------|-----------|-------------------------------------------------------------------------------------------|
+| z       | `integer` | Atomic number. **Required**.                                                              |
+| chg     | `integer` | Formal charge. **Default**: 0.                                                            |
+| impHs   | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
+| isotope | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
+| nRad    | `integer` | Number of radical electrons. **Default**: 0.                                              |
+| stereo  | `string`  | Allowed values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                     |
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
 
@@ -277,6 +280,25 @@ Example of a CommonChem file containing conformer coordinates:
   ]
 }
 ```
+
+### Property Object
+
+Property objects allow generic data to be stored on molecules, similarly to an SDF property field.
+
+Example of a property object:
+
+```json
+{"name": "PubChem CID", "value": "2244"}
+```
+
+The following fields are available:
+
+| Name   | Type     | Description                   |
+|--------|----------|-------------------------------|
+| name   | `string` | Property name. **Required**.  |
+| value  | any?     | Property value. **Required**. |
+
+Applications should not interpret properties to affect chemical representation. Chemically meaningful data should instead use an [Extension object](#extension-object).
 
 ### Extension Object
 
