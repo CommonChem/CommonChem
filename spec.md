@@ -310,6 +310,53 @@ One of the goals of the CommonChem project is for as many applications as possib
 
 ## Examples
 
-`TODO`
-
-
+```json
+{
+  "commonchem": {"version": 1000},
+  "defaults": {
+    "atom": {"stereo": "unspecified", "chg": 0, "nrad": 0, "Z": 6, "impHs": 0, "isotope": 0},
+    "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
+  }
+  "molecules": [
+    {
+      "name": "example 3", 
+      "atoms": [
+        {"z": 8},
+        {"z": 6, "stereo": "ccw"},
+        {"z": 17},
+        {"z": 6},
+        {"z": 6},
+        {"z": 6},
+        {"z": 1},
+        {"z": 1},
+        {"z": 1},
+        {"z": 1},
+        {"z": 1},
+        {"z": 1},
+        {"z": 1}
+      ],
+      "bonds": [
+         {"atoms": [1, 2]},
+         {"atoms": [1, 3]},
+         {"atoms": [3, 4], "type": 2, "stereoAtoms": [1, 5], "stereo": "trans"},
+         {"atoms": [4, 5]},
+         {"atoms": [0, 6]},
+         {"atoms": [1, 7]},
+         {"atoms": [3, 8]},
+         {"atoms": [4, 9]},
+         {"atoms": [5, 10]},
+         {"atoms": [5, 11]},
+         {"atoms": [5, 12]}
+      ],
+      "conformers": [
+        {"dim": 2, "coords": [[-2.7796, 0.9135], [-1.6349, -0.0559], [-2.7883, -1.0149], [-0.2231, 0.4508], [0.9216, -0.5186], [2.3335, -0.0119], [-4.1914, 0.4068], [-0.8908, -1.3583], [0.0441, 1.9268], [0.6545, -1.9946], [3.4782, -0.9813], [3.4869, 0.947], [1.5894, 1.2905]]},
+        {"dim": 3, "coords": [[2.1105, 0.4157, -0.2114], [1.5717, -0.5232, 0.443], [2.3766, -2.0449, 0.0206], [0.1184, -0.6373, 0.0945], [-0.5623, 0.4623, -0.2583], [-2.0473, 0.4396, -0.2488], [2.572, 1.0572, -0.2412], [1.7018, -0.2628, 1.5244], [-0.3963, -1.593, 0.0418], [-0.1015, 1.3944, 0.0865], [-2.4928, 1.4231, 0.0277], [-2.3664, -0.3192, 0.4839], [-2.4844, 0.1881, -1.2369]]}
+      ],
+      "extensions": [
+        {"name":"rdkit-representation", "toolkitVersion": "2018.03.1.dev1", "extensionVersion": 1, "aromaticAtoms": [], "aromaticBonds": [],"cipCodes": [[1, "R"]],"atomRings": []},
+        {"name":"partial-charges", "charge-type":"gasteiger", "toolkit":"RDKit", "toolkitVersion": "2018.03.1.dev1", "values": [-0.374, 0.146, -0.087, -0.045, -0.088, -0.047, 0.213, 0.082, 0.061, 0.057, 0.027, 0.027, 0.027]}   
+      ]
+    }
+  ]
+}
+```
