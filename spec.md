@@ -244,7 +244,7 @@ The following fields are available:
 | hcount      | `integer` | Count of implicit hydrogens bonded to this atom. Does not include any hydrogen atoms that exist explicitly in the array of atom objects. **Default**: 0. |
 | isotope     | `integer` | Atomic mass number. **Default**: 0, which indicates natural abundance mixture.            |
 | nrad        | `integer` | Number of radical electrons. **Default**: 0.                                              |
-| stereo      | `string`  | Possible values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                    |
+| stereo      | `string`  | Allowed values are `cw`, `ccw`, `unspecified`, `unknown`, or `other`.                     |
 
 In contrast to many other formats, no assumptions are made about allowed valence states, and therefore the hydrogen count must always be specified (if non-zero).
 
@@ -254,7 +254,7 @@ Hydrogens may be represented as actual atom objects in the molecular graph as an
 - The hydrogen has a charge or isotope number
 - The hydrogen does not have exactly one bond to a non-hydrogen atom
 
-Tetrahedral stereochemistry is specified using the `parity` field. The order of the bonded atom neighbors is given by their relative order in the molecule's `atoms` array. If the atom has a non-zero `hcount` the hydrogen is considered to be the first atom neighbor in the order. Looking towards the chiral center from the first atom neighbor, the remaining neighbors occur in a clockwise (`parity` of `1`) or anti-clockwise (`parity` of `-1`) direction.
+Tetrahedral stereochemistry is specified using the `stereo` field. The order of the bonded atom neighbors is given by their relative order in the molecule's `atoms` array. If the atom has a non-zero `hcount` the hydrogen is considered to be the first atom neighbor in the order. Looking towards the chiral center from the first atom neighbor, the remaining neighbors occur in a clockwise (`cw`) or counter-clockwise (`ccw`) direction.
 
 Atom coordinates are specified using the [`conformers`](#Conformer) molecule field.
 
