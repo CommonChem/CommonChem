@@ -262,10 +262,12 @@ Atom coordinates are specified using the [`conformers`](#Conformer) molecule fie
 
 The following fields are available:
 
-| Name  | Type        | Description                                                             |
-|-------|-------------|-------------------------------------------------------------------------|
-| type  | `integer`   | Bond order. **Required**.                                               |
-| atoms | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required** |
+| Name         | Type        | Description                                                             |
+|-------------|-------------|--------------------------------------------------------------------------|
+| type        | `integer`   | Bond order. **Required**.                                                |
+| atoms       | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required**  |
+| stereoatoms | [`integer`] | Indices of the atoms determining the stereochemistry. **Default**: `[]`. |
+| stereo      | `string`    | Allowed values are `unspecified`, `cis`, `trans`, `other`.               |
 
 Allowed bond orders are 0, 1, 2, 3. Zero-order bonds do not have any valence contribution, and should be used for things like coordination bonds and hydrogen bonds. Bond orders 1, 2, and 3 correspond to single, double, and triple bonds respectively.
 
