@@ -353,8 +353,8 @@ One of the goals of the CommonChem project is for as many applications as possib
         {"dim": 3, "coords": [[2.1105, 0.4157, -0.2114], [1.5717, -0.5232, 0.443], [2.3766, -2.0449, 0.0206], [0.1184, -0.6373, 0.0945], [-0.5623, 0.4623, -0.2583], [-2.0473, 0.4396, -0.2488], [2.572, 1.0572, -0.2412], [1.7018, -0.2628, 1.5244], [-0.3963, -1.593, 0.0418], [-0.1015, 1.3944, 0.0865], [-2.4928, 1.4231, 0.0277], [-2.3664, -0.3192, 0.4839], [-2.4844, 0.1881, -1.2369]]}
       ],
       "extensions": [
-        {"name":"rdkit-representation", "toolkitVersion": "2018.03.1.dev1", "extensionVersion": 1, "aromaticAtoms": [], "aromaticBonds": [],"cipCodes": [[1, "R"]],"atomRings": []},
-        {"name":"partial-charges", "charge-type":"gasteiger", "toolkit":"RDKit", "toolkitVersion": "2018.03.1.dev1", "values": [-0.374, 0.146, -0.087, -0.045, -0.088, -0.047, 0.213, 0.082, 0.061, 0.057, 0.027, 0.027, 0.027]}   
+        {"name": "rdkit-representation", "version": 1000, "toolkitVersion": "2018.03.1.dev1",  "aromaticAtoms": [], "aromaticBonds": [], "cipCodes": [[1, "R"]], "atomRings": []},
+        {"name": "partial-charges", "version": 1000, "chargeType":"gasteiger", "toolkit":"RDKit", "toolkitVersion": "2018.03.1.dev1", "values": [-0.374, 0.146, -0.087, -0.045, -0.088, -0.047, 0.213, 0.082, 0.061, 0.057, 0.027, 0.027, 0.027]}   
       ]
     }
   ]
