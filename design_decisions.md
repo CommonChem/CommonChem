@@ -148,34 +148,11 @@ An alternative strategy is a separate stereo layer:
 
 This is a bit verbose. It allows for categories of stereochemistry type (`tetrahedral`, `planar`), each of which can have different field requirements.
 
-## Extension Field Names
-
-[Reverse domain name notation](https://en.wikipedia.org/wiki/Reverse_domain_name_notation) was considered:
-```json
-{
-  "com.chemaxon.marvin.myproperty": "value"
-}
-```
-
-But this is a bit verbose, and having periods in the field name is problematic for languages or notations that use them to access nested object fields. Also, not every extension will have a registered domain name to use.
-
-Instead, we use the prefix `x-`.
-
-```json
-{
-  "x-myextension-myproperty": "value"
-}
-```
-
-This is similar to the convention for custom HTTP headers, and is also used the [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md#specificationExtensions).
-
-## The `extensions` Field
+## Extensions
 
 Applications that read and write CommonChem files must support an extension in its entirety, or not at all. It is not allowed to interpret a specific field from an extension but not others.
 
-Each extension used by a file should be specified in the top-level `extensions` field.
-
-Each extension should have a publicly available specification that defines its fields. The version number in the `extensions` field corresponds to the version of this specification. For extensions that are linked to a specific toolkit, the extension specification version should be unrelated to the version of the toolkit itself.
+Each extension should have a publicly available specification that defines its fields. The version number in the extension corresponds to the version of this specification. For extensions that are linked to a specific toolkit, the extension specification version need not be directly tied to the version of the toolkit itself.
 
 ## Fields outside the scope of a single molecule
 

@@ -21,7 +21,6 @@ The purpose of this open, versioned specification is to facilitate interoperabil
 - [Versions](#versions)
 - [Format](#format)
 - [Schema](#schema)
-- [Extensions](#extensions)
 - [Examples](#examples)
 
 ## Versions
@@ -47,7 +46,7 @@ Within a CommonChem file, versions are stored using a single integer where 1000 
 There are two kinds of fields:
 
 - **Core fields** have a fixed name that is declared in the [schema](#schema) section of this specification.
-- **Extension fields** follow a strict pattern, and are declared in an extension specification.
+- **Extension fields** must occur in an [Extension object](#extension-object) and are declared in a separate extension specification.
 
 ### Serialization
 
@@ -145,8 +144,6 @@ It can have the following fields:
 
 It is recommended that the `commonchem` field is the first field in the file, but this is solely to help with human-readability.
 
-[Extension fields](#extension-fields) may be added to this object.
-
 ### Metadata Object
 
 Every CommonChem file must have a single Metadata object as the value for the `commonchem` field in the top level Container.
@@ -154,52 +151,13 @@ Every CommonChem file must have a single Metadata object as the value for the `c
 Example of a Metadata object:
 
 ```json
-{
-  "version": 1000,
-  "extensions": [{"id": "rdkit", "version": "0.0.1"}]
-}
+{"version": 1000}
 ```
 
 
 | Name       | Type                                    | Description                                                  |
 |------------|-----------------------------------------|--------------------------------------------------------------|
 | version    | `integer`                               | The version of this specification that the file conforms to. **Required**. |
-| extensions | [[Extension Object](#extension-object)] | Array of CommonChem extensions used in this file.            |
-
-Each [Extension Object](#extension-object) in the `extensions` field must have a unique `id`. A file cannot conform to multiple versions of the same extension.
-
-### Extension Object
-
-An Extension object indicates that fields from a certain extension are used in the file.
-
-| Name       | Type             | Description                                                                         |
-|------------|------------------|-------------------------------------------------------------------------------------|
-| id         | `string`         | Extension identifier. Must be unique within this array of extensions **Required**.  |
-| version    | `string`         | The version of the extension specification that the file conforms to. **Required**. |
-| spec       | `string`         | The URL of the extension specification.                                             |
-| supported  | `boolean`        | Whether the application that wrote the file fully supported the extension. **Default**: `true` |
-
-Any application that writes files that contain extension fields should include an array of Extension objects in the `commonchem` Metadata object.
-
-Example of an Extension object:
-
-```json
-{"id": "rdkit", "version": "0.0.1"}
-```
-
-If an application processes a file that contains extensions that it does not support, every effort should be made to preserve the extension data. However, when writing back to a file, the `supported` field should be set to `false` on the corresponding Extension objects. This indicates to any other applications that subsequently process this file that the data in the fields from that extension may not be fully valid.
-
-```json
-{"id": "rdkit", "version": "0.0.1", "supported": false}
-```
-
-When reading a file of this type, applications should perform validation checks to flag any invalid data, and automatically re-derive it if possible.
-
-For example, consider the situation where one application stores aromaticity information in an extension. If a second application is then used to process a molecule and break a bond in the aromatic ring, it will read and write the aromaticity extension fields unchanged, even though they are no longer valid for the new structure. If the first application reads the file again, the fact that the extension object has the `supported` field set to `false` indicates that the aromaticity information should be regenerated rather than read from the file.
-
-Applications that read and write CommonChem files must support an extension in its entirety, or not at all. It is not allowed to interpret a specific field from an extension but not others. The only circumstances under which an application may write a field from an unsupported extension is when preserving it unmodified from an input.
-
-[Extension fields](#extension-fields) may be added to this object, however extensions should only add fields to their own extension object, not those for other extensions.
 
 ### Molecule Object
 
@@ -229,8 +187,7 @@ The following fields are available:
 | atoms       | [[Atom Object](#atom-object)]           | An array of Atom objects.                             |
 | bonds       | [[Bond Object](#bond-object)]           | An array of Bond objects.                             |
 | conformers  | [[Conformer Object](#conformer-object)] | An array of Conformer objects.                        |
-
-[Extension fields](#extension-fields) may be added to this object.
+| extensions  | [[Extension Object](#extension-object)] | An array of Extension objects.                        |
 
 ### Atom Object
 
@@ -302,79 +259,55 @@ Example of a CommonChem file containing conformer coordinates:
 }
 ```
 
-## Extensions
+### Extension Object
 
-### Extension Fields
+Extension objects contain aspects of chemical representation that are not provided for by the core CommonChem specification.
 
-Custom fields may be added to certain objects, for example Molecules, Atoms, and Bonds.
-
-Extension fields must use the following format:
+Example of a CommonChem file containing an extension:
 
 ```json
 {
-  "x-<extension>-<property>": "<value>"
-}
-```
-
-Each field consists of the prefix `x-`, followed by the extension `id`, followed by the property name. This enforces a namespace so extension fields do not clash. The field value may be an object itself with further nested fields. These nested fields are not required to follow the extension field name format.
-
-```json
-{
-  "commonchem": {
-    "version": 1000,
-    "extensions": [{"id": "rdkit", "version": "0.0.1"}, {"id": "myextension", "version": "0.0.1"}]
-  },
+  "commonchem": {"version": 1000},
   "molecules": [
     {
-      "atoms": [{"z": 6, "hcount": 4, "x-rdkit-aromatic": false}],
-      "x-myextension-molmeta": {
-        "flavor": 2,
-        "comment": "test"
-      }
+      "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
+      "bonds": [{"atoms": [0, 1], "type": 1}, {"atoms": [1, 2], "type": 1}, {"atoms": [1, 3], "type": 2}],
+      "extensions": [
+        {"name": "myextension", "version": 1000, "myproperty": "value"}
+      ]
     }
   ]
 }
 ```
 
-Applications should emit a warning when reading and writing files that contain extensions that they do not support. When reading a file with unsupported extensions, the extension fields should be read and stored as generic properties on the relevant Molecule, Atom or Bond. No attempt should be made to actually interpret the data from an unsupported extension. When writing back to a CommonChem output file, these generic properties should be translated back into the original extension fields, preserving the original input. The corresponding [Extension object](#extension-object) should also be written to match the version specified in the input, but the `supported` field should be set to `false`, to indicate that the extension fields are potentially invalid.
+| Name       | Type      | Description                                                                         |
+|------------|-----------|-------------------------------------------------------------------------------------|
+| name       | `string`  | Extension identifier. **Required**.                                                 |
+| version    | `integer` | The version of the extension specification that the file conforms to. **Required**. |
 
-Applications should emit an error and abort reading a file upon encountering an extension field with no corresponding [Extension object](#extension-object) in the `commonchem` metadata object. Even if the application recognizes the extension name as one it supports, it is ambiguous which version of the extension has been used and therefore the file should not be read.
+The only required fields on an extension object are `name` and `version`. The version number should be an `integer` that follows the [same convention](#versions) as the core CommonChem specification version.
 
-### Use Cases
+Extensions should not reference or depend on fields in other extensions.
+
+Applications should emit a warning when reading and writing files that contain extensions that they do not support. When reading a file with unsupported extensions, the extension fields should be read and stored as generic properties on the relevant Molecule. When writing back to a CommonChem output file, every effort should be made to preserve the extension data, unmodified from the original input. However, if any modifications are made to any of the structure-determining data fields all extensions should be either be regenerated (if supported) or removed (if not).
+
+For example, consider the situation where one application stores aromaticity information in an extension. If a second application is then used to process a molecule and break a bond in the aromatic ring, the extension data is no longer valid and the application should either regenerate or remove it when writing to a CommonChem output file.
+
+Applications that read and write CommonChem files must support an extension in its entirety, or not at all. It is not allowed to interpret a specific field from an extension but not others. The only circumstances under which an application may write an unsupported extension is when preserving it unmodified from an input.
+
+Anyone may create an extension specification. Submission for review through the CommonChem GitHub repository is encouraged but not required. An approved review has the benefit of reserving the extension `name`, should the situation arise where multiple extensions desire the same `name`. It also serves to publicize the extension to application developers, encouraging support in applications.
 
 Two main use cases are envisioned for extensions: **Application Extensions** and **Shared Extensions**.
 
 #### Application Extensions
 
-Application extensions should only be used for data where it does not make sense for any other application to interpret it. Applications are discouraged from actually interpreting and making use of application-specific extensions written by other applications. They should be read in and written out without modification, by assigning the values as generic properties to the relevant Molecule, Atom, and Bond objects.
+Application extensions should only be used for data where it does not make sense for any other application to interpret it. Applications are discouraged from actually interpreting and making use of application-specific extensions written by other applications. They should be read in and written out without modification, by assigning the values as generic properties to the corresponding Molecule object.
 
-The application name should be used for the extension `id`:
-
-```json
-{
-  "x-rdkit-property": "value"
-}
-```
-
-Everything in the field name after the extension `id` is flexible and free for the application developer to use as they see fit. For example, if the extension is used by a company for multiple applications, it may be desirable further specify an application-specific level: 
-
-```json
-{
-  "x-chemaxon-marvin-property": "value"
-}
-```
-
-A specification should still be published for application extensions, even if no other applications will implement it. This serves to reserve the extension `id` and provide a public record of the extension's existence.
+A specification should still be published for application extensions, even if no other applications will implement it. This serves to reserve the extension `name` and provide a public record of the extension's existence.
 
 #### Shared Extensions
 
 One of the goals of the CommonChem project is for as many applications as possible to achieve full support for the Core CommonChem Specification. Therefore, data that is unlikely to be supported by the majority of applications is considered outside the scope of the core specification and should instead be defined in a shared extension that a subset of applications may support.
-
-If multiple applications are using application extensions to store the same or similar data, they should ideally be submitted for inclusion in a future version of the Core CommonChem Specification. However, this might not always be feasible if there is disagreement about the schema, semantics, or whether they should be included at all. In these cases, the community may wish to develop a shared extension.
-
-### Review Process
-
-Anyone may create an extension specification. Submission for review through the CommonChem GitHub repository is encouraged but not required. An approved review has the benefit of reserving the extension `id`, should the situation arise where multiple extensions desire the same `id`. It also serves to publicize the extension to application developers, encouraging support in applications.
 
 ## Examples
 
