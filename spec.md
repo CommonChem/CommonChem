@@ -65,7 +65,7 @@ JSON example:
   "molecules": [{
     "name": "ethane",
     "atoms": [{"element": 6, "hcount": 3}, {"element": 6, "hcount": 3}],
-    "bonds": [{"order": 1, "start": 0, "end": 1}]
+    "bonds": [{"order": 1, "atoms": [0, 1]}]
   }]
 }
 ```
@@ -216,7 +216,7 @@ Example of a Molecule object:
       {"element": 6, "hcount": 3}
     ],
     "bonds": [
-      {"order": 1, "start": 0, "end": 1}
+      {"order": 1, "atoms": [0, 1]}
     ]
 }
 ```
@@ -265,18 +265,17 @@ Atom coordinates are specified using the [`conformers`](#Conformer) molecule fie
 
 The following fields are available:
 
-| Name        | Type      | Description                                                    |
-|-------------|-----------|----------------------------------------------------------------|
-| id          | `string`  | Must be unique within this array of Bond objects.              |
-| order       | `integer` | Bond order. **Required**.                                      |
-| start       | `integer` | Index of start atom in the atoms array. **Required**.          |
-| end         | `integer` | Index of end atom in the atoms array. **Required**.            |
-| style       | `string`  | Bond style specifier. `dashed`, `wavy`, `dotted`, `arrow`.     |
-| type        | `string`  | Bond type specifier. `dative`, `complex`, `hydrogen`, `ionic`. |
+| Name  | Type        | Description                                                             |
+|-------|-------------|-------------------------------------------------------------------------|
+| id    | `string`    | Must be unique within this array of Bond objects.                       |
+| order | `integer`   | Bond order. **Required**.                                               |
+| atoms | [`integer`] | Indices of atoms in the atoms array involved in this bond. **Required** |
+| style | `string`    | Bond style specifier. `dashed`, `wavy`, `dotted`, `arrow`.              |
+| type  | `string`    | Bond type specifier. `dative`, `complex`, `hydrogen`, `ionic`.          |
 
 Allowed bond orders are 0, 1, 2, 3. Zero-order bonds do not have any valence contribution, and should be used for things like coordination bonds and hydrogen bonds. Bond orders 1, 2, and 3 correspond to single, double, and triple bonds respectively.
 
-Bond `start` and `end` indices use the zero-based index of atoms in the molecule's `atoms` array.
+The bond `atoms` array uses the zero-based index of atoms in the molecule's `atoms` array. It must contain exactly two elements.
 
 ### Conformer Object
 
@@ -299,7 +298,7 @@ Example of a CommonChem file containing conformer coordinates:
   "molecules": [
     {
       "atoms": [{"element": 6}, {"element": 6}, {"element": 8}, {"element": 8}],
-      "bonds": [{"start": 0, "end": 1}, {"start": 1, "end": 2}, {"start": 1, "end": 3, "order": 2}],
+      "bonds": [{"atoms": [0, 1]}, {"atoms": [1, 2]}, {"atoms": [1, 3], "order": 2}],
       "conformers": [
         {"dim": 2, "coords": [[1.7321,0.0000], [0.8660, 0.5000], [0.8660, 1.5000], [0.0000, 0.0000]]}
       ]

@@ -88,7 +88,7 @@ On the whole, objects with field names that explicitly define the meaning of val
 
 ## IDs vs. Indices
 
-Where possible, use the index of objects in an array to refer to them instead of requiring an ID is present on each object. For example, bond `start` and `end` atoms are referred to by the index of the atom in the `atoms` array. For more complicated types of reference, it should be possible to use [JSONPath](http://goessner.net/articles/JsonPath/) notation. 
+Where possible, use the index of objects in an array to refer to them instead of requiring an ID is present on each object. For example, bond `atoms` are referred to by the index of the atom in the molecule `atoms` array. For more complicated types of reference, it should be possible to use [JSONPath](http://goessner.net/articles/JsonPath/) notation. 
 
 Many objects in the specification allow for an ID to be specified, but really this is just a convenience to facilitate interaction with an external system or database that requires identifiers.
 
