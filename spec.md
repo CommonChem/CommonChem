@@ -139,6 +139,7 @@ It can have the following fields:
 | Name       | Type                                  | Description                                                    |
 |------------|---------------------------------------|----------------------------------------------------------------|
 | commonchem | [Metadata Object](#metadata-object)   | Indicates that the file conforms to a specific version of the CommonChem specification and provides other metadata about the file.  **Required**. |
+| defaults   | [Defaults Object](#defaults-object)   | Defines the default values for missing fields.                 |
 | molecules  | [[Molecule Object](#molecule-object)] | Array of Molecule objects, each of which describes a chemical structure. |
 
 It is recommended that the `commonchem` field is the first field in the file, but this is solely to help with human-readability.
@@ -157,6 +158,25 @@ Example of a Metadata object:
 | Name       | Type                                    | Description                                                  |
 |------------|-----------------------------------------|--------------------------------------------------------------|
 | version    | `integer`                               | The version of this specification that the file conforms to. **Required**. |
+
+
+### Defaults Object
+
+The Defaults object allows the default field values to be defined for various object types, so they don't have to be explicitly specified on every occurrence of that object type.
+
+Example of a Defaults object:
+
+```json
+{
+  "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "Z": 6, "impHs": 0, "isotope": 0},
+  "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
+}
+```
+
+| Name  | Type                        | Description                            |
+|-------|-----------------------------|----------------------------------------|
+| atom  | [Atom Object](#atom-object) | Atom object with default field values. |
+| bond  | [Bond Object](#bond-object) | Bond object with default field values. |
 
 ### Molecule Object
 
@@ -180,13 +200,13 @@ Example of a Molecule object:
 
 The following fields are available:
 
-| Name        | Type                                    | Description                                           |
-|-------------|-----------------------------------------|-------------------------------------------------------|
-| name        | `string`                                | A name for this Molecule.                             |
-| atoms       | [[Atom Object](#atom-object)]           | An array of Atom objects.                             |
-| bonds       | [[Bond Object](#bond-object)]           | An array of Bond objects.                             |
-| conformers  | [[Conformer Object](#conformer-object)] | An array of Conformer objects.                        |
-| extensions  | [[Extension Object](#extension-object)] | An array of Extension objects.                        |
+| Name        | Type                                    | Description                    |
+|-------------|-----------------------------------------|--------------------------------|
+| name        | `string`                                | Name for this Molecule.        |
+| atoms       | [[Atom Object](#atom-object)]           | Array of Atom objects.         |
+| bonds       | [[Bond Object](#bond-object)]           | Array of Bond objects.         |
+| conformers  | [[Conformer Object](#conformer-object)] | Array of Conformer objects.    |
+| extensions  | [[Extension Object](#extension-object)] | An array of Extension objects. |
 
 ### Atom Object
 
@@ -314,7 +334,7 @@ One of the goals of the CommonChem project is for as many applications as possib
 {
   "commonchem": {"version": 1000},
   "defaults": {
-    "atom": {"stereo": "unspecified", "chg": 0, "nrad": 0, "Z": 6, "impHs": 0, "isotope": 0},
+    "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "Z": 6, "impHs": 0, "isotope": 0},
     "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
   }
   "molecules": [
