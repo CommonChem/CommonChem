@@ -22,9 +22,11 @@ Here is a simple example:
 }
 ```
 
+Find more example files in the [examples](examples) directory.
+
 ## Specification
 
-The specification is in the file [spec.md](spec.md).
+The core specification is in the file [spec.md](spec.md).
 
 ## JSON Schema
 
@@ -36,4 +38,5 @@ There are a number of extension specifications in the [extensions](extensions) d
 
 ## Implementations
 
-TODO: MIT-licensed reference implementations in C++ for RDKit and Open Babel
+- RDKit has beta support as of the 2018.03.1 release. Find it under [MolInterchange](https://github.com/rdkit/rdkit/tree/master/Code/GraphMol/MolInterchange).
+- Open Babel support is planned.
