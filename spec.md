@@ -1,6 +1,6 @@
 ---
 title: CommonChem Specification
-version: 1.0
+version: 10
 author:
     - name: Matthew Swain
     - email: m.swain@me.com
@@ -25,15 +25,17 @@ The purpose of this open, versioned specification is to facilitate interoperabil
 
 ## Versions
 
-This specification is versioned with a number that consists of two components: `major.minor` (for example 1.2). The major version is incremented when a backwards-incompatible change is made, and the minor version is incremented when a backwards-compatible change is made. Applications that are designed for a specific version should continue to work with subsequent minor releases, although they will not necessarily fully support any newly added features. Applications should not attempt to read or write a CommonChem file with a major version that they do not support.
+This specification is versioned with an integer number (currently `10`). This version number is incremented by one when backwards-compatible changes are made ("minor releases"), and incremented to the next thousand when backwards-incompatible changes are made ("major releases").
 
-Within a CommonChem file, versions are stored using a single integer where 1000 values are allocated for potential minor versions in each major version. For example, `1000` corresponds to version `1.0`, and `2010` would correspond to version `2.10`.
+Applications that are designed for a specific version should continue to work with subsequent minor releases, although they will not necessarily fully support any newly added features. Applications should not attempt to read or write a CommonChem file with a major version that they do not support.
+
+Version `1000` will be the first stable release. Subsequent `1xxx` versions will be minor updates that maintain compatibility, and version `2000` will indicate a backwards-incompatible change. All versions prior to `1000` should be considered "beta" releases, where any new version may potentially contain backwards-incompatible changes.
 
 ### Version History
 
-| Version | Integer Version | Date       | Notes                                          |
-|---------|-----------------|------------|------------------------------------------------|
-| 1.0     | 1000            | 2018-??-?? | First version of the CommonChem Specification. |
+| Version | Date       | Notes                                          |
+|---------|------------|------------------------------------------------|
+| 10      | 2018-05-09 | First version of the CommonChem Specification. |
 
 ## Format
 
@@ -60,7 +62,7 @@ JSON example:
 
 ```json
 {
-  "commonchem": 1000,
+  "commonchem": 10,
   "molecules": [{
     "name": "ethane",
     "atoms": [{"z": 6, "impHs": 3}, {"z": 6, "impHs": 3}],
@@ -76,7 +78,7 @@ JSON example:
 YAML example:
 
 ```yaml
-commonchem: 1000
+commonchem: 10
 molecules:
   - name: ethane
     atoms:
@@ -128,7 +130,7 @@ Example of a Container object:
 
 ```json
 {
-   "commonchem": 1000,
+   "commonchem": 10,
    "molecules": [{"atoms": [{"z": 6, "impHs": 4}]}]
 }
 ```
@@ -137,11 +139,11 @@ It can have the following fields:
 
 | Name       | Type                                  | Description                                                    |
 |------------|---------------------------------------|----------------------------------------------------------------|
-| commonchem | `integer`                             | Indicates that the file conforms to a specific version of the CommonChem specification. **Required**. |
+| commonchem | `integer`                             | The version of this specification that the file conforms to. **Required**. |
 | defaults   | [Defaults Object](#defaults-object)   | Defines the default values for missing fields.                 |
 | molecules  | [[Molecule Object](#molecule-object)] | Array of Molecule objects, each of which describes a chemical structure. |
 
-It is recommended that the `commonchem` field is the first field in the file, but this is solely to help with human-readability.
+It is recommended that the `commonchem` version field is the first field in the file, but this is solely to help with human-readability.
 
 ### Defaults Object
 
@@ -251,7 +253,7 @@ Example of a CommonChem file containing conformer coordinates:
 
 ```json
 {
-  "commonchem": 1000,
+  "commonchem": 10,
   "molecules": [
     {
       "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
@@ -291,7 +293,7 @@ Example of a CommonChem file containing an extension:
 
 ```json
 {
-  "commonchem": {"version": 1000},
+  "commonchem": 10,
   "molecules": [
     {
       "atoms": [{"z": 6}, {"z": 6}, {"z": 8}, {"z": 8}],
@@ -337,11 +339,11 @@ One of the goals of the CommonChem project is for as many applications as possib
 
 ```json
 {
-  "commonchem": 1000,
+  "commonchem": 10,
   "defaults": {
-    "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "Z": 6, "impHs": 0, "isotope": 0},
+    "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "z": 6, "impHs": 0, "isotope": 0},
     "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
-  }
+  },
   "molecules": [
     {
       "name": "example 3", 

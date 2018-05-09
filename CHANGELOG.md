@@ -1,5 +1,5 @@
 # Change Log
 
-## Version 0.0.1
+## Version 10
 
-- First draft of the CommonChem Specification.
+- First version of the CommonChem Specification.

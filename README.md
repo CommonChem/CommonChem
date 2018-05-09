@@ -6,11 +6,7 @@ Here is a simple example:
 
 ```json
 {
-  "commonchem": 1000,
-  "defaults": {
-    "atom": {"stereo": "unspecified", "chg": 0, "nRad": 0, "z": 6, "impHs": 0, "isotope": 0},
-    "bond": {"stereoAtoms": [], "stereo": "unspecified", "type": 1}
-  },
+  "commonchem": 10,
   "molecules": [
     {
       "name": "ethane",

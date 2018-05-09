@@ -1,5 +1,5 @@
 {
-  "commonchem": {"version": 1000},
+  "commonchem": 10,
   "molecules": [
     {
       "name": "ethane",
