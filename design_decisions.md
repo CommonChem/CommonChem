@@ -42,7 +42,7 @@ Legibility must be balanced with brevity. CommonChem isn't trying to be the most
 
 ## Versions
 
-Semantic versioning allows future versions of the CommonChem specification to introduce both backwards-compatible and backwards-incompatible changes in a clear and easily supportable way.
+Semantic versioning allows future versions of the CommonChem specification to introduce both backwards-compatible and backwards-incompatible changes in a clear and easily supportable way. Representing this as a single integer allows for easy range comparisons in toolkits.
 
 ## Multiple Molecules
 
@@ -50,26 +50,15 @@ CommonChem has a top level `molecules` array field to allow multiple molecules t
 
 ## IDs vs. Indices
 
-Where possible, use the index of objects in an array to refer to them instead of requiring an ID is present on each object. For example, bond `atoms` are referred to by the index of the atom in the molecule `atoms` array. For more complicated types of reference, it should be possible to use [JSONPath](http://goessner.net/articles/JsonPath/) notation. 
-
-Many objects in the specification allow for an ID to be specified, but really this is just a convenience to facilitate interaction with an external system or database that requires identifiers.
+Where possible, use the index of objects in an array to refer to them instead of requiring an ID is present on each object. For example, bond `atoms` are referred to by the index of the atom in the molecule `atoms` array. For more complicated types of reference, it should be possible to use [JSONPath](http://goessner.net/articles/JsonPath/) notation.
 
 ## Atomic Numbers vs. Element Symbols
 
-Atom elements should be specified using their atomic number. In theory, CommonChem could allow specifying elements by either their atomic number or element symbol, but it is better to pick one way
-
-- Don't need to wait for new symbols to be assigned to new elements
-- All toolkits should contain a periodic table that allows conversion from number to symbol and vice versa.
-
-## Index vs. ID For Atom References
-
-Other objects that contain a reference to a specific atom could use either the index of that atom in the `atoms` array, or the value of an `id` field on that atom. We use the index rather than the `id` because it allows the `id` field to be optional.
+Atom elements should be specified using their atomic number. Not also allowing the use of element symbols means that the format is simpler to implement. It also means we don't need to wait for new symbols to be assigned to new elements, and we don't need to worry about dealing with provisional symbols.
 
 ## Valence Model
 
-Always require explicit hydrogen count? Even on common organic subset? Would help avoid mistakes by implementations that may assume the wrong valence model.
-
-The bonds, charge, radical, and hydrogen count must all be specified for every atom. If any is omitted, the default value is assumed to be zero. It is not deduced by a valence model.
+A major source of confusion in other formats is an implicit (and sometimes undocumented) valence model. To avoid this, CommonChem always requires that the bonds, charge, radical, and hydrogen count must all be specified for every atom. If any is omitted, the default value is assumed to be zero. It is not deduced by a valence model.
 
 ## Allowed Valence States
 
@@ -77,7 +66,7 @@ Some toolkits are more strict, others allow exotic or impossible valence states.
 
 ## Multi-center Bonds
 
-There is currently poor toolkit support for multi-center bonds, and it complicates many algorithms and data structures. As a result, the Core CommonChem Specification requires that all bonds have a single start atom and a single end atom. Most multi-center bonds can be represented in this way through the use of zero-order bonds.
+There is currently poor toolkit support for multi-center bonds, and it complicates many algorithms and data structures. As a result, the Core CommonChem Specification requires that all bonds have a single start atom and a single end atom. Many multi-center bonds can be represented in this way through the use of zero-order bonds.
 
 The Resonance Extension provides a layer on top of the core representation that allows for multi-center bonds.
 
@@ -114,7 +103,7 @@ This is a bit verbose. It allows for categories of stereochemistry type (`tetrah
 
 Applications that read and write CommonChem files must support an extension in its entirety, or not at all. It is not allowed to interpret a specific field from an extension but not others.
 
-Each extension should have a publicly available specification that defines its fields. The version number in the extension corresponds to the version of this specification. For extensions that are linked to a specific toolkit, the extension specification version need not be directly tied to the version of the toolkit itself.
+Each extension should have a publicly available specification that defines its fields. The version number in the extension corresponds to the version of the extension specification that it conforms to. For extensions that are linked to a specific toolkit, the extension specification version should not be directly tied to the version of the toolkit itself.
 
 ## Fields outside the scope of a single molecule
 
